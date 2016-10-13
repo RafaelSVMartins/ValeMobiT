@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="LayoutPadrao">
+	
+	<section layout:fragment="conteudo">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="clearfix">
+					<h1 class="panel-title aw-titulo-panel">Pesquisa das Mercadorias</h1>
+					<a class="btn btn-link aw-link-panel" href="/mercadorias/novo">Nova Mercadoria</a>
+				</div>
+			</div>
+		
+		<div class="panel-body">
+			<table class="table table-bordered table-striped">
+				<thead>
+						<tr>
+							<td class="text-center col-md-1">#</td>
+							<td class="text-right col-md-2">Tipo Mercadoria:</td>
+							<td class="text-right col-md-2">Nome Mercadoria:</td>
+							<td class="text-right col-md-2">Quantidade:</td>
+							<td class="text-right col-md-2">Preço:</td>
+							<td class="text-right col-md-2">Status:</td>
+						</tr>
+				</thead>
+				<tbody>
+						<tr th:each="Mercadoria : ${mercadoria}">
+							<td class="text-center" th:text="${Mercadoria.codigoMercadoria}"></td>
+							<td class="text-center" th:text="${Mercadoria.tipoMercadoria}"></td>
+							<td class="text-center" th:text="${Mercadoria.nomeMercadoria}"></td>
+							<td class="text-right" th:text="${Mercadoria.quantidade}"></td>
+							<td class="text-left" th:text="${{Mercadoria.preco}}"></td>
+							<td class="text-left" th:text="${Mercadoria.status}"
+							th:classappend="${Mercadoria.compra ? 'label-danger' : 'label-success'}"></td>
+							
+							<td class="text-center">
+							<a class="btn btn-link btn-xs" 
+	   						th:href="@{/mercadorias/{id}(id=${Mercadoria.codigoMercadoria})}" 
+	   						title="Editar" rel="tooltip" data-placement="top">
+	   						<span class="glyphicon glyphicon-pencil"></span>
+	   						</a>
+	   		
+							<a class="btn btn-link btn-xs" data-toggle="modal" 
+							data-target="#confirmacaoExclusaoModalMercadoria" th:attr="data-id=${Mercadoria.codigoMercadoria},data-nome=${Mercadoria.nomeMercadoria}"
+							title="Excluir2" rel="tooltip" data-placement="top"> 
+								<span class="glyphicon glyphicon-remove"></span>
+							</a></td>
+							</tr>
+							<tr>
+	   						<td colspan="6" th:if="${#lists.isEmpty(mercadoria)}">Nenhum título foi encontrado</td>
+	   						</tr>
+				</tbody>
+			</table>
+		</div>		
+			<div layout:include="DialogoConfirmacaoExclusaoMercadoria"></div>
+		</div>
+	</section>
+
+</html>

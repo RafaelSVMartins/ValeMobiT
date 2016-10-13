@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="LayoutPadrao">
+
+<section layout:fragment="conteudo">
+	<form class="form-horizontal" method="post" action="/mercadorias" th:object="${mercadoria}">
+		<div layout:include="MensagemGeral"></div>
+		<div layout:include="MensagemErro"></div>
+		
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<div class="clearfix">
+					<h1 class="panel-title aw-titulo-panel">Cadastro de Mercadorias</h1>
+					<a class="btn btn-link aw-link-panel" href="/mercadorias">Voltar para a pesquisa de mercadorias</a>
+				</div>
+			</div>
+				<div class="panel-body">
+					<input type="hidden" th:field="*{codigoMercadoria}"/>
+					<div class="form-group" th:classappend="${#fields.hasErrors('nomeMercadoria')} ? has-error">
+						<label for="nomeMercadoria" class="col-sm-2 control-label">Nome da Mercadoria:</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" id="nomeMercadoria" th:field="*{nomeMercadoria}" />
+						</div>
+					</div>
+					<div class="form-group" th:classappend="${#fields.hasErrors('tipoMercadoria')} ? has-error">
+						<label for="tipoMercadoria" class="col-sm-2 control-label">Tipo de Mercadoria:</label>
+						<div class="col-sm-2">
+							<input type="text" class="form-control" id="tipoMercadoria" th:field="*{tipoMercadoria}"/>
+						</div>
+					</div>
+					<div class="form-group" th:classappend="${#fields.hasErrors('quantidade')} ? has-error">
+					<label for="Quantidade" class="col-sm-2 control-label">Quantidade:</label>
+					<div class="col-sm-2">   
+						<input type="text" class="form-control" id="Quantidade" th:field="*{quantidade}"/>
+					</div>
+					</div>
+					<div class="form-group" th:classappend="${#fields.hasErrors('preco')} ? has-error">
+					<label for="preco" class="col-sm-2 control-label">Valor</label>
+					<div class="col-sm-2">   
+						<input type="text" class="form-control js-currency" id="preco" th:field="*{preco}"/>
+					</div>
+					</div>
+					<div class="form-group">
+					<label for="status" class="col-sm-2 control-label">Status</label>
+					<div class="col-sm-2">
+						<select class="form-control" name="status" th:field="*{status}">
+							<option th:each="status : ${todosStatusMercadoria}" th:value="${status}" th:text="${status.descricao}"></option>
+                    	</select>
+                    </div>
+					</div>
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10">
+							<button type="submit" class="btn btn-primary">Salvar</button>
+						</div>
+					</div>
+				</div>
+			</div>
+	</form>
+</section>
+
+</html>
